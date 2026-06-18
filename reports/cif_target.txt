@@ -1,7 +1,7 @@
 ======================================================================
  CIF RAGGIUNGIMENTO TARGET LDL (morte = evento competitivo)
  Stimatore Aalen-Johansen; confronto tra gruppi: test di Gray
- Generato: 2026-06-18 12:16 
+ Generato: 2026-06-18 12:40 
 ======================================================================
 
 N pazienti analizzati: 62346 

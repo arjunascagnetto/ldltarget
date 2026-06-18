@@ -15,7 +15,9 @@ suppressMessages({
   library(cmprsk)
 })
 
-proj_dir   <- "D:/SAS-CCV/DOWNLOAD/DAICHILDL/ldltarget"
+# radice del progetto = cartella superiore a quella dello script (src/)
+.f       <- sub("^--file=", "", grep("^--file=", commandArgs(FALSE), value = TRUE))
+proj_dir <- if (length(.f)) normalizePath(file.path(dirname(.f), "..")) else normalizePath(getwd())
 data_dir   <- file.path(proj_dir, "data")
 report_dir <- file.path(proj_dir, "reports")
 output_dir <- file.path(proj_dir, "outputs")
