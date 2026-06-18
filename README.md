@@ -26,7 +26,20 @@ rischi competitivi: la morte è l'evento competitivo).
 - **I dati dei pazienti NON sono pubblicati nel repository** (cartella `data/` e `*.csv` esclusi
   da `.gitignore`, perché sensibili). Per eseguire gli script occorre disporre dei CSV in locale.
 
-## How-to: clone, dati e installazione pacchetti
+## Setup rapido (Windows)
+
+Lo script `setup.ps1` verifica e installa il necessario (R + pacchetti `survival`/`cmprsk`,
+Python + `markdown`/`xhtml2pdf`, installando R/Python via `winget` se assenti) e controlla i dati:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\setup.ps1        # solo setup
+powershell -ExecutionPolicy Bypass -File .\setup.ps1 -Run   # setup + analisi + PDF
+```
+
+Nota: i dati (`data/*.csv`) non sono versionati e vanno copiati a parte (vedi sotto). In
+alternativa al setup automatico, si possono seguire i passi manuali qui sotto.
+
+## How-to manuale: clone, dati e installazione pacchetti
 
 ### 1. Clonare il repository
 ```bash
