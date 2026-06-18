@@ -42,8 +42,10 @@ cd ldltarget
 ```powershell
 mkdir data    # se non esiste
 # copiare qui i 3 CSV: LDLFUP_TARGET.csv, LDLFUP_FARMACEUTICA.csv, LDLFUP_LDL.csv
-# (es. estraendoli da ldltarget_data.zip)
 ```
+> I dati vanno ottenuti **separatamente** dal responsabile del progetto (non sono nel repo né
+> nel `git clone`): ad esempio l'archivio cifrato `ldltarget_data.zip` (anch'esso fuori dal repo),
+> da estrarre dentro `data/`.
 
 **3. Eseguire il setup** (solo dopo aver messo i dati)
 ```powershell
