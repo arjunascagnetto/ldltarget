@@ -96,6 +96,30 @@ Nota: la multiterapia è quasi sempre statina-centrica (`sta+eze` domina). I far
 nei modelli avranno scarsa potenza come categorie singole; probabile raggruppamento (es.
 "combinazione" o "include farmaco innovativo").
 
+### LDL al basale (`ldl_indice`) per classe di rischio
+
+Script: `src/descrittiva_ldl_basale.R` · Report: `reports/descrittiva_ldl_basale.txt` ·
+Figura: `outputs/ldl_basale_per_classe.png`.
+
+| Classe (soglia) | n | Media (SD) | Mediana [Q1–Q3] | Min–Max |
+|---|---|---|---|---|
+| 1 (target 116) | 3.183 | 139,9 (18,0) | 136,0 [125,0–152,0] | 116–190 |
+| 2 (target 100) | 7.958 | 138,5 (22,9) | 136,6 [120,0–155,4] | 100–190 |
+| 3 (target 70) | 17.549 | 142,5 (46,3) | 134,0 [105,8–180,6] | 70–456 |
+| 4 (target 55) | 33.656 | 105,8 (35,3) | 100,0 [77,4–128,0] | 55–434 |
+
+LDL complessivo: media 122,1 · mediana 118,8 mg/dL. Kruskal-Wallis tra classi: χ²=12.373, p<10⁻¹⁰.
+
+Note interpretative:
+- Il **minimo di ogni classe coincide con la sua soglia** (classe 1=116, …, classe 4=55): la
+  coorte include per ogni classe solo pazienti con LDL basale ≥ target, cioè *non ancora a target*
+  all'arruolamento (criterio di ingresso dello studio di raggiungimento).
+- La **classe 4 (rischio più alto) ha l'LDL basale più basso** (mediana 100): avendo target più
+  stringente (55), bastano valori moderati per essere fuori target; la distribuzione dell'LDL
+  basale è quindi guidata dalla soglia di ingresso, non dalla gravità clinica.
+- Variabilità maggiore nelle classi a target basso (classe 3: SD 46, max 456); le classi 1–2 sono
+  più compatte con tetto ~190.
+
 ## Disegno dello studio (proposto)
 
 L'outcome `reached` ha un rischio competitivo evidente (10.836 morti prima del target),
@@ -169,3 +193,86 @@ Test di Gray (differenza per terapia): **p < 0,0001**.
 
 Note: IC 95% per gruppo/tempo nel file `cif_target.txt`. Gli IC al 5°–6° anno sono più larghi
 per il calo dei pazienti a rischio (follow-up: mediana 947 gg, max 2233 gg).
+
+## Modello di Fine-Gray — cos'è
+
+Script: `src/finegray_target.R` · Report: `reports/finegray_target.txt`.
+
+Il modello di Fine-Gray è una regressione per dati time-to-event **in presenza di rischi
+competitivi**. Nel nostro studio:
+- **Evento di interesse**: raggiungere il target LDL.
+- **Evento competitivo**: la morte — chi muore non potrà più raggiungere il target e non va
+  trattato come una semplice censura (come se potesse ancora raggiungerlo).
+
+**Problema che risolve.** Il Cox classico stima l'*hazard causa-specifico* trattando le morti
+come censure: utile per il meccanismo biologico, ma distorce il rischio assoluto (la 1−Kaplan-
+Meier sovrastima quanti raggiungono il target perché ignora che i morti escono definitivamente).
+
+**Idea di Fine-Gray.** Invece dell'hazard istantaneo, modella direttamente la **funzione di
+incidenza cumulativa (CIF)** — la stessa curva stimata con Aalen-Johansen. Lo fa tramite il
+**subdistribution hazard**: i soggetti con evento competitivo (morte) **restano nel set a
+rischio** (con peso decrescente) invece di uscire. Così i coefficienti descrivono come le
+covariate spostano la probabilità cumulativa *effettiva* di raggiungere il target.
+
+**Interpretazione (sHR = subdistribution Hazard Ratio):**
+- **sHR > 1** → maggiore incidenza cumulativa di raggiungimento target;
+- **sHR < 1** → minore incidenza cumulativa.
+È l'analogo dell'HR di Cox, ma riferito alla CIF, quindi direttamente leggibile in termini di
+"chi raggiunge di più/di meno il target nel tempo reale".
+
+**Fine-Gray vs Cox causa-specifico** (entrambi nel protocollo):
+
+| | Fine-Gray (sHR) | Cox causa-specifico (HR) |
+|---|---|---|
+| Modella | la CIF (rischio assoluto) | l'hazard istantaneo |
+| Tratta la morte | resta a rischio (pesata) | come censura |
+| Risponde a | "chi raggiunge di più il target?" | "qual è il meccanismo/rate istantaneo?" |
+| Uso tipico | predizione, impatto clinico | eziologia |
+
+**Specifica del modello stimato:** covariate al basale = età (per 10 anni), sesso, classe di
+rischio, LDL indice (per 10 mg/dL), terapia. Referenze: classe 4, sesso F, terapia No.
+Risultati (sHR, IC 95%, p) in `reports/finegray_target.txt`.
+
+### Risultati del modello (sHR)
+
+N = 62.346 · target 7.585 · morte 10.836 · censurati 43.925. Referenze: classe 4, sesso F, terapia No.
+
+| Variabile | sHR | IC 95% | p | Lettura |
+|---|---|---|---|---|
+| Età (+10 anni) | 0,861 | 0,845–0,878 | <10⁻⁵² | −14% per decade |
+| Sesso M (vs F) | 1,269 | 1,212–1,330 | <10⁻²³ | uomini +27% |
+| Classe 1 (vs 4) | 2,735 | 2,410–3,102 | <10⁻⁵⁴ | molto più probabile |
+| Classe 2 (vs 4) | 2,757 | 2,540–2,993 | <10⁻¹²⁸ | molto più probabile |
+| Classe 3 (vs 4) | 1,462 | 1,374–1,555 | <10⁻³² | più probabile |
+| LDL indice (+10 mg/dL) | 0,855 | 0,847–0,864 | <10⁻²⁰² | LDL basale più alto → meno raggiungimento |
+| Terapia Sì (vs No) | 1,957 | 1,856–2,064 | <10⁻¹³⁴ | in terapia ~2× |
+
+Sintesi: il raggiungimento del target è guidato soprattutto dall'LDL basale (più si è lontani
+dalla soglia, meno la si raggiunge) e dalla terapia (~2×); le classi a target meno stringente
+(1–2) raggiungono di più della classe 4; età avanzata e sesso femminile si associano a minore
+raggiungimento.
+
+### CIF vs sHR — come interpretarli
+
+Sono misure diverse e complementari:
+
+- **CIF (incidenza cumulativa)** = probabilità assoluta (0–100%), dipendente dal tempo. Es. "a 6
+  anni il 20% ha raggiunto il target". Risponde a *"quanti raggiungono il target e quando?"*.
+- **sHR (subdistribution Hazard Ratio)** = rapporto relativo tra gruppi, valore unico, aggiustato
+  per le altre covariate. NON è una probabilità. Risponde a *"quante volte di più/di meno
+  rispetto al gruppo di riferimento?"*. sHR>1 = CIF più alta; sHR<1 = CIF più bassa.
+
+Esempio di collegamento (terapia): sHR ≈ 1,96 ≈ rapporto tra le CIF a 6 anni (27,7% in terapia
+vs 14,5% senza ≈ 1,9). La CIF dà i due numeri assoluti, lo sHR li riassume in "circa il doppio".
+
+| | CIF | sHR |
+|---|---|---|
+| Cos'è | probabilità (0–100%) | rapporto tra gruppi |
+| Dipende dal tempo? | sì (1…6 anni) | no, valore unico |
+| Aggiustato? | no (curva grezza) | sì (al netto delle altre covariate) |
+| Risponde a | "quanti raggiungono il target?" | "quante volte di più del riferimento?" |
+
+Avvertenze: (1) lo sHR è aggiustato, la CIF grezza no → il match non è sempre perfetto (es.
+classe 1 vs 4: sHR 2,7 ma CIF grezze 6 anni 27,1% vs 17,8% ≈ 1,5, perché lo sHR isola l'effetto
+della classe tenendo costanti LDL, età, sesso, terapia); (2) lo sHR si assume costante nel tempo,
+la CIF mostra l'andamento anno per anno.

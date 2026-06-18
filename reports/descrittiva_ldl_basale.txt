@@ -1,0 +1,16 @@
+======================================================================
+ LDL AL BASALE (ldl_indice) PER CLASSE DI RISCHIO
+ Generato: 2026-06-18 10:45 
+======================================================================
+
+N totale: 62346 | LDL complessivo: media 122.1  mediana 118.8 mg/dL
+
+ classe     n soglia media   sd mediana    Q1    Q3 min   max pct_sotto_soglia
+      1  3183    116 139.9 18.0   136.0 125.0 152.0 116 190.0                0
+      2  7958    100 138.5 22.9   136.6 120.0 155.4 100 190.0                0
+      3 17549     70 142.5 46.3   134.0 105.8 180.6  70 456.2                0
+      4 33656     55 105.8 35.3   100.0  77.4 128.0  55 433.6                0
+
+'pct_sotto_soglia' = % pazienti gia' sotto il target LDL al basale.
+
+Kruskal-Wallis (LDL basale tra classi): chi2 = 12373  df = 3  p = < 1e-10 

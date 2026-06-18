@@ -1,0 +1,25 @@
+======================================================================
+ MODELLO DI FINE-GRAY - raggiungimento target LDL
+ Evento competitivo: morte. sHR = subdistribution Hazard Ratio.
+ Implementazione: survival::finegray + coxph (dataset pesato).
+ Generato: 2026-06-18 10:37 
+======================================================================
+
+N pazienti: 62346 | target: 7585 | morte: 10836 | censurati: 43925 
+
+Referenze: classe=4, sesso=F, terapia=No.
+Scale: age10 = eta'/10 anni; ldl10 = LDL_indice/10 mg/dL.
+
+sHR > 1 -> maggiore incidenza cumulativa di raggiungimento target
+sHR < 1 -> minore incidenza cumulativa di raggiungimento target
+
+ variabile   sHR IC_low IC_up   p_value
+     age10 0.861  0.845 0.878  7.56e-53
+   genderM 1.269  1.212 1.330  8.68e-24
+   classe1 2.735  2.410 3.102  4.56e-55
+   classe2 2.757  2.540 2.993 2.20e-129
+   classe3 1.462  1.374 1.555  2.50e-33
+     ldl10 0.855  0.847 0.864 9.89e-203
+ terapiaSi 1.957  1.856 2.064 9.39e-135
+
+Concordanza (C): 0.709 | n eventi (target): 7585 
