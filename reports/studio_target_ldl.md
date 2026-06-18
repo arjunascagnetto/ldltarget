@@ -276,3 +276,69 @@ Avvertenze: (1) lo sHR è aggiustato, la CIF grezza no → il match non è sempr
 classe 1 vs 4: sHR 2,7 ma CIF grezze 6 anni 27,1% vs 17,8% ≈ 1,5, perché lo sHR isola l'effetto
 della classe tenendo costanti LDL, età, sesso, terapia); (2) lo sHR si assume costante nel tempo,
 la CIF mostra l'andamento anno per anno.
+
+## Modello di Cox causa-specifico
+
+Script: `src/coxcs_target.R` · Report: `reports/coxcs_target.txt`.
+
+### Cos'è
+
+Modello di Cox sull'**hazard causa-specifico**: il *tasso istantaneo* con cui si raggiunge il
+target **tra i pazienti ancora a rischio e ancora in vita** in ogni istante. La differenza chiave
+dal Fine-Gray è come tratta la morte:
+- **Cox causa-specifico**: chi muore esce dal set a rischio → la morte è trattata come **censura**.
+- **Fine-Gray**: chi muore **resta** a rischio (pesato), perché non potrà mai raggiungere il target.
+
+Risponde a una domanda **biologica/meccanicistica**: tra chi è ancora vivo e non a target, quanto
+velocemente lo raggiunge in funzione delle covariate (effetto sul *processo*, depurato dalla morte
+competitiva).
+
+### Risultati (HR causa-specifico)
+
+N = 62.346 · eventi target 7.585. Referenze: classe 4, sesso F, terapia No.
+
+| Variabile | HR | IC 95% | p |
+|---|---|---|---|
+| Età (+10 anni) | 0,930 | 0,910–0,951 | <10⁻¹⁰ |
+| Sesso M (vs F) | 1,325 | 1,264–1,389 | <10⁻³⁰ |
+| Classe 1 (vs 4) | 2,926 | 2,579–3,321 | <10⁻⁶¹ |
+| Classe 2 (vs 4) | 2,577 | 2,378–2,792 | <10⁻¹¹⁷ |
+| Classe 3 (vs 4) | 1,342 | 1,261–1,427 | <10⁻¹⁹ |
+| LDL indice (+10 mg/dL) | 0,843 | 0,836–0,851 | <10⁻²⁸⁷ |
+| Terapia Sì (vs No) | 1,724 | 1,631–1,823 | <10⁻⁸¹ |
+
+### Cosa dice di diverso da CIF e sHR
+
+| | CIF | sHR (Fine-Gray) | HR (Cox causa-specifico) |
+|---|---|---|---|
+| Cos'è | probabilità assoluta nel tempo | rapporto sul rischio assoluto (CIF) | rapporto sul tasso istantaneo |
+| La morte | la "consuma" (riduce il target) | il soggetto resta a rischio | trattata come censura |
+| Domanda | "quanti raggiungono il target?" | "chi raggiunge di più, in assoluto?" | "qual è il meccanismo/velocità?" |
+| Uso | impatto clinico, predizione | predizione/equità | eziologia, effetto biologico |
+
+**Confronto diretto HR vs sHR:**
+
+| Variabile | HR (causa-spec.) | sHR (Fine-Gray) |
+|---|---|---|
+| Età (+10 anni) | 0,930 | 0,861 |
+| Sesso M | 1,325 | 1,269 |
+| Classe 1 vs 4 | 2,926 | 2,735 |
+| Classe 2 vs 4 | 2,577 | 2,757 |
+| Classe 3 vs 4 | 1,342 | 1,462 |
+| LDL (+10 mg/dL) | 0,843 | 0,855 |
+| Terapia Sì | 1,724 | 1,957 |
+
+Lettura delle differenze (esempio età): HR 0,930 = tra i vivi, −7% sul tasso istantaneo per
+decade; sHR 0,861 = −14% sull'incidenza cumulativa. L'età agisce **due volte contro** il
+raggiungimento — rallenta il processo *e* aumenta la mortalità competitiva — e il Fine-Gray
+cattura entrambi gli effetti, il causa-specifico solo il primo (→ sHR più estremo). Idem per la
+terapia (sHR 1,96 > HR 1,72): chi è in terapia raggiunge più in fretta e muore meno.
+
+**Regola pratica:** se per una covariata HR e sHR vanno nella stessa direzione e lo sHR è più
+estremo, l'evento competitivo (morte) **rinforza** l'effetto sul rischio assoluto. In direzioni
+opposte, effetto sul processo e sulla mortalità si compensano.
+
+**Sintesi d'uso:** Cox causa-specifico → *meccanismo* (cosa accelera il raggiungimento tra i vivi);
+Fine-Gray/sHR → *impatto clinico assoluto* (chi arriva a target nella vita reale); CIF → *numeri
+assoluti* nel tempo. Qui i tre approcci concordano qualitativamente, a conferma della robustezza.
+Il report `coxcs_target.txt` include anche la verifica dell'assunzione di proporzionalità (`cox.zph`).
