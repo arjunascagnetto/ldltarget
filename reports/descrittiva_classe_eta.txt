@@ -1,0 +1,53 @@
+======================================================================
+ DESCRITTIVA: CLASSE DI RISCHIO x FASCIA DI ETA'
+ Coorte: pazienti con >=1 prescrizione nel file FARMACEUTICA
+ Generato: 2026-06-18 10:00 
+======================================================================
+
+=== FILE FARMACEUTICA ===
+Righe (prescrizioni): 291754 
+Pazienti distinti    : 30987 
+Range data_indice    : 2020-01-02 2023-12-31 
+Range data_prescriz. : 2020-01-09 2033-08-04   (NB: presenti date future, da verificare)
+
+=== POPOLAZIONE ANALIZZATA (livello paziente) ===
+N pazienti con classe nota: 30987 
+Eta': media 73.2 | mediana 75 | range 18-100 
+
+--- Conteggi (n) ---
+       Classe
+Fascia      1     2     3     4   Sum
+  <55     273   294   724   783  2074
+  55-64     5  1453  1409  1912  4779
+  65-74     0   673  3608  3723  8004
+  75-84     0     0  2184  9329 11513
+  85+       0     0   431  4186  4617
+  Sum     278  2420  8356 19933 30987
+
+--- % di riga (classi entro fascia) ---
+       Classe
+Fascia     1    2    3    4
+  <55   13.2 14.2 34.9 37.8
+  55-64  0.1 30.4 29.5 40.0
+  65-74  0.0  8.4 45.1 46.5
+  75-84  0.0  0.0 19.0 81.0
+  85+    0.0  0.0  9.3 90.7
+
+--- % di colonna (eta' entro classe) ---
+       Classe
+Fascia     1    2    3    4
+  <55   98.2 12.1  8.7  3.9
+  55-64  1.8 60.0 16.9  9.6
+  65-74  0.0 27.8 43.2 18.7
+  75-84  0.0  0.0 26.1 46.8
+  85+    0.0  0.0  5.2 21.0
+
+--- Distribuzione complessiva classi (%) ---
+
+   1    2    3    4 
+ 0.9  7.8 27.0 64.3 
+
+--- Distribuzione complessiva fasce eta' (%) ---
+
+  <55 55-64 65-74 75-84   85+ 
+  6.7  15.4  25.8  37.2  14.9 
