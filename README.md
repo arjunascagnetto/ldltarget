@@ -30,22 +30,28 @@ rischi competitivi: la morte è l'evento competitivo).
 
 Lo script `setup.ps1` verifica e installa il necessario (R + pacchetti `survival`/`cmprsk`,
 Python via `winget` se assente) e **crea un venv `.venv`** in cui installa `markdown`/`xhtml2pdf`
-(senza toccare il Python di sistema), poi controlla i dati:
+(senza toccare il Python di sistema), poi controlla i dati. Ordine corretto dei passi:
 
+**1. Clonare il repository ed entrarci**
+```powershell
+git clone https://github.com/arjunascagnetto/ldltarget.git
+cd ldltarget
+```
+
+**2. Copiare i dati in `data/`** (i CSV non sono nel repo e lo script non li crea né li scarica)
+```powershell
+mkdir data    # se non esiste
+# copiare qui i 3 CSV: LDLFUP_TARGET.csv, LDLFUP_FARMACEUTICA.csv, LDLFUP_LDL.csv
+# (es. estraendoli da ldltarget_data.zip)
+```
+
+**3. Eseguire il setup** (solo dopo aver messo i dati)
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\setup.ps1        # solo setup
 powershell -ExecutionPolicy Bypass -File .\setup.ps1 -Run   # setup + analisi + PDF
 ```
 
-> ⚠️ **PRIMA di eseguire `setup.ps1` (e soprattutto `-Run`) copia i dati nella cartella `data/`.**
-> I CSV (`LDLFUP_TARGET.csv`, `LDLFUP_FARMACEUTICA.csv`, `LDLFUP_LDL.csv`) **non sono nel repo** e
-> lo script **non li crea né li scarica**: si limita a verificarne la presenza. La cartella `data/`
-> va creata e riempita a mano:
-> ```powershell
-> mkdir data    # se non esiste
-> # copiare qui i 3 CSV (es. estraendoli da ldltarget_data.zip)
-> ```
-> Senza i dati, `setup.ps1 -Run` si ferma con errore "dati mancanti".
+> ⚠️ Senza i dati in `data/`, `setup.ps1 -Run` si ferma con errore "dati mancanti".
 
 ## How-to manuale: clone, dati e installazione pacchetti
 
