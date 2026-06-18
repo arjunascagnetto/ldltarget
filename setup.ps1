@@ -94,13 +94,24 @@ if (-not $py) {
   $py = (Get-Command python -ErrorAction SilentlyContinue).Source
   if (-not $py) { throw "Python installato ma non rilevato. Riapri il terminale e rilancia." }
 }
-Info "Python: $py"
+Info "Python di sistema: $py"
 
-Step "Pacchetti Python (markdown, xhtml2pdf)"
-& $py -m pip install --quiet --upgrade pip
-& $py -m pip install --quiet markdown xhtml2pdf
-if ($LASTEXITCODE -ne 0) { throw "Installazione pacchetti Python fallita." }
-Info "Pacchetti Python pronti."
+Step "Ambiente virtuale (.venv) e pacchetti (markdown, xhtml2pdf)"
+$VenvDir = Join-Path $ProjDir ".venv"
+$VenvPy  = Join-Path $VenvDir "Scripts\python.exe"
+if (-not (Test-Path $VenvPy)) {
+  Write-Host "Creo il venv in .venv ..." -ForegroundColor Cyan
+  & $py -m venv $VenvDir
+  if (-not (Test-Path $VenvPy)) { throw "Creazione venv fallita." }
+} else {
+  Info "venv gia' presente."
+}
+& $VenvPy -m pip install --quiet --upgrade pip
+& $VenvPy -m pip install --quiet markdown xhtml2pdf
+if ($LASTEXITCODE -ne 0) { throw "Installazione pacchetti Python (venv) fallita." }
+# d'ora in poi usa il Python del venv
+$py = $VenvPy
+Info "Pacchetti Python pronti nel venv: $VenvPy"
 
 # ---------------------------------------------------------------------
 Step "Dati"

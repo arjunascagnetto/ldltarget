@@ -29,7 +29,8 @@ rischi competitivi: la morte è l'evento competitivo).
 ## Setup rapido (Windows)
 
 Lo script `setup.ps1` verifica e installa il necessario (R + pacchetti `survival`/`cmprsk`,
-Python + `markdown`/`xhtml2pdf`, installando R/Python via `winget` se assenti) e controlla i dati:
+Python via `winget` se assente) e **crea un venv `.venv`** in cui installa `markdown`/`xhtml2pdf`
+(senza toccare il Python di sistema), poi controlla i dati:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\setup.ps1        # solo setup
@@ -92,24 +93,27 @@ Verifica:
 python --version
 ```
 
-Poi i pacchetti per la conversione Markdown -> PDF:
-```bash
-pip install markdown xhtml2pdf
+Creare un **ambiente virtuale dedicato** nel progetto (`.venv`, non versionato) e installarvi i
+pacchetti per la conversione Markdown -> PDF (così non si tocca il Python di sistema/Anaconda):
+```powershell
+python -m venv .venv
+.\.venv\Scripts\python.exe -m pip install --upgrade pip
+.\.venv\Scripts\python.exe -m pip install markdown xhtml2pdf
 ```
 
-Generazione del PDF:
-```bash
-python src/md_to_pdf.py
+Generazione del PDF (usando il Python del venv):
+```powershell
+.\.venv\Scripts\python.exe src\md_to_pdf.py
 ```
 
 ### 5. Eseguire le analisi
-```bash
+```powershell
 Rscript src/descrittiva_classe_eta.R
 Rscript src/descrittiva_ldl_basale.R
 Rscript src/cif_target.R
 Rscript src/finegray_target.R
 Rscript src/coxcs_target.R
-python   src/md_to_pdf.py      # rigenera reports/studio_target_ldl.pdf
+.\.venv\Scripts\python.exe src\md_to_pdf.py   # rigenera reports/studio_target_ldl.pdf
 ```
 
 ## Metodi (sintesi)
