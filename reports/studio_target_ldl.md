@@ -96,6 +96,12 @@ Nota: la multiterapia è quasi sempre statina-centrica (`sta+eze` domina). I far
 nei modelli avranno scarsa potenza come categorie singole; probabile raggruppamento (es.
 "combinazione" o "include farmaco innovativo").
 
+### Classi di rischio per fascia di età
+
+![Distribuzione % delle classi di rischio per fascia di età](../outputs/classe_per_fascia_eta_pct.png)
+
+![Classi di rischio per fascia di età — conteggi](../outputs/classe_per_fascia_eta_conteggi.png)
+
 ### LDL al basale (`ldl_indice`) per classe di rischio
 
 Script: `src/descrittiva_ldl_basale.R` · Report: `reports/descrittiva_ldl_basale.txt` ·
@@ -109,6 +115,8 @@ Figura: `outputs/ldl_basale_per_classe.png`.
 | 4 (target 55) | 33.656 | 105,8 (35,3) | 100,0 [77,4–128,0] | 55–434 |
 
 LDL complessivo: media 122,1 · mediana 118,8 mg/dL. Kruskal-Wallis tra classi: χ²=12.373, p<10⁻¹⁰.
+
+![LDL al basale per classe di rischio (boxplot, con soglia target)](../outputs/ldl_basale_per_classe.png)
 
 Note interpretative:
 - Il **minimo di ogni classe coincide con la sua soglia** (classe 1=116, …, classe 4=55): la
@@ -182,6 +190,8 @@ Stimatore Aalen-Johansen (morte = evento competitivo).
 
 Test di Gray (differenza tra classi): **p < 0,0001**.
 
+![CIF raggiungimento target per classe di rischio](../outputs/cif_target_classe.png)
+
 ### CIF raggiungimento target per TERAPIA (%)
 
 | Gruppo (n) | 1 anno | 2 anni | 3 anni | 4 anni | 5 anni | 6 anni |
@@ -190,6 +200,8 @@ Test di Gray (differenza tra classi): **p < 0,0001**.
 | In terapia (n=21.401) | 5,3 | 12,7 | 18,2 | 22,2 | 25,1 | 27,7 |
 
 Test di Gray (differenza per terapia): **p < 0,0001**.
+
+![CIF raggiungimento target per terapia](../outputs/cif_target_terapia.png)
 
 Note: IC 95% per gruppo/tempo nel file `cif_target.txt`. Gli IC al 5°–6° anno sono più larghi
 per il calo dei pazienti a rischio (follow-up: mediana 947 gg, max 2233 gg).
