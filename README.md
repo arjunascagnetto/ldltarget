@@ -38,10 +38,10 @@ git clone https://github.com/arjunascagnetto/ldltarget.git
 cd ldltarget
 ```
 
-**2. Copiare i dati in `data/`** (i CSV non sono nel repo e lo script non li crea né li scarica)
+**2. Copiare i dati nella cartella `data/`** (già presente dopo il clone; i CSV non sono nel
+repo e lo script non li crea né li scarica)
 ```powershell
-mkdir data    # se non esiste
-# copiare qui i 3 CSV: LDLFUP_TARGET.csv, LDLFUP_FARMACEUTICA.csv, LDLFUP_LDL.csv
+# copiare in data/ i 3 CSV: LDLFUP_TARGET.csv, LDLFUP_FARMACEUTICA.csv, LDLFUP_LDL.csv
 ```
 > I dati vanno ottenuti **separatamente** dal responsabile del progetto (non sono nel repo né
 > nel `git clone`): ad esempio l'archivio cifrato `ldltarget_data.zip` (anch'esso fuori dal repo),

@@ -13,6 +13,8 @@ Thumbs.db
 .DS_Store
 
 # Dati sensibili (pazienti) - NON pubblicare su GitHub
-data/
+# (la cartella data/ resta nel repo via .gitkeep, ma i suoi contenuti no)
+data/*
+!data/.gitkeep
 *.csv
 *.zip
