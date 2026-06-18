@@ -10,3 +10,4 @@ Thumbs.db
 # Dati sensibili (pazienti) - NON pubblicare su GitHub
 data/
 *.csv
+*.zip
