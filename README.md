@@ -56,10 +56,37 @@ for (p in c("survival","cmprsk"))
   cat(p, requireNamespace(p, quietly = TRUE), "\n")
 ```
 
-### 4. (Opzionale) Pacchetti Python per il PDF
-Per rigenerare il PDF dal Markdown:
+### 4. (Opzionale) Python per generare il PDF
+
+Se Python non è installato, installarlo velocemente:
+
+- Windows (winget):
+```powershell
+winget install -e --id Python.Python.3.12
+```
+- Windows (alternativa): se è già presente conda/Anaconda, nessuna installazione necessaria.
+- macOS (Homebrew):
+```bash
+brew install python
+```
+- Linux (Debian/Ubuntu):
+```bash
+sudo apt update && sudo apt install -y python3 python3-pip
+```
+
+Verifica:
+```bash
+python --version
+```
+
+Poi i pacchetti per la conversione Markdown -> PDF:
 ```bash
 pip install markdown xhtml2pdf
+```
+
+Generazione del PDF:
+```bash
+python src/md_to_pdf.py
 ```
 
 ### 5. Eseguire le analisi
