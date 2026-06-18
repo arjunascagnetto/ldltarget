@@ -1,6 +1,8 @@
 # Studio di raggiungimento del target LDL
 
-Fonte dati: `longitudinal/data/LDLFUP_TARGET.csv` (62.346 pazienti, 1 riga per paziente).
+Fonte dati: `ldltarget/data/LDLFUP_TARGET.csv` (62.346 pazienti, 1 riga per paziente).
+I dati risiedono in `data/` (non versionata su GitHub); gli script li leggono via
+`data_dir <- file.path(proj_dir, "data")`.
 
 ## Descrittive
 

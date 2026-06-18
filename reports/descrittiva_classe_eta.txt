@@ -1,7 +1,7 @@
 ======================================================================
  DESCRITTIVA: CLASSE DI RISCHIO x FASCIA DI ETA'
  Coorte: pazienti con >=1 prescrizione nel file FARMACEUTICA
- Generato: 2026-06-18 10:00 
+ Generato: 2026-06-18 12:15 
 ======================================================================
 
 === FILE FARMACEUTICA ===

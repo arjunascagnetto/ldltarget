@@ -1,6 +1,6 @@
 ======================================================================
  LDL AL BASALE (ldl_indice) PER CLASSE DI RISCHIO
- Generato: 2026-06-18 10:45 
+ Generato: 2026-06-18 12:15 
 ======================================================================
 
 N totale: 62346 | LDL complessivo: media 122.1  mediana 118.8 mg/dL

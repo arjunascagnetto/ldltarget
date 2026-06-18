@@ -1,4 +1,4 @@
-d <- read.csv("D:/SAS-CCV/DOWNLOAD/DAICHILDL/longitudinal/data/LDLFUP_TARGET.csv",
+d <- read.csv("D:/SAS-CCV/DOWNLOAD/DAICHILDL/ldltarget/data/LDLFUP_TARGET.csv",
               sep=";", stringsAsFactors=FALSE)
 cat("N righe:", nrow(d), "| pazienti unici:", length(unique(d$KEY_ANAGRAFE)),"\n\n")
 cat("status:\n"); print(table(d$status, useNA="ifany"))

@@ -1,4 +1,4 @@
-d <- read.csv("D:/SAS-CCV/DOWNLOAD/DAICHILDL/longitudinal/data/LDLFUP_TARGET.csv",
+d <- read.csv("D:/SAS-CCV/DOWNLOAD/DAICHILDL/ldltarget/data/LDLFUP_TARGET.csv",
               sep=";", stringsAsFactors=FALSE)
 drugs <- c("sta","eze","bem","inc","pcs")
 m <- sapply(d[drugs], function(x) ifelse(is.na(x) | x=="", 0, 1))

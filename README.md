@@ -40,8 +40,9 @@ I CSV non sono nel repo. Copiarli nella cartella `data/` del progetto:
 mkdir -p data
 # copiare qui: LDLFUP_TARGET.csv, LDLFUP_FARMACEUTICA.csv, LDLFUP_LDL.csv
 ```
-Nota: gli script attualmente puntano al percorso dati tramite una variabile `data_dir` in testa
-a ciascun file `src/*.R`. Aggiornare `data_dir` al proprio percorso locale (es. `"./data"`).
+Gli script leggono i dati da `data/` ricavandola da `proj_dir` (in testa a ciascun `src/*.R`:
+`data_dir <- file.path(proj_dir, "data")`). Per usarli su un'altra macchina basta aggiornare
+**solo** `proj_dir` al percorso locale del progetto.
 
 ### 3. Installare i pacchetti R
 Servono `survival` (di base in R) e `cmprsk`. In R / Rscript:

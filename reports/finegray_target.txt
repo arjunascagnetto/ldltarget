@@ -2,7 +2,7 @@
  MODELLO DI FINE-GRAY - raggiungimento target LDL
  Evento competitivo: morte. sHR = subdistribution Hazard Ratio.
  Implementazione: survival::finegray + coxph (dataset pesato).
- Generato: 2026-06-18 10:37 
+ Generato: 2026-06-18 12:19 
 ======================================================================
 
 N pazienti: 62346 | target: 7585 | morte: 10836 | censurati: 43925 

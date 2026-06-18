@@ -2,7 +2,7 @@
  COX CAUSA-SPECIFICO - raggiungimento target LDL
  La morte e' trattata come censura (cause-specific hazard).
  HR = cause-specific Hazard Ratio.
- Generato: 2026-06-18 10:55 
+ Generato: 2026-06-18 12:19 
 ======================================================================
 
 N pazienti: 62346 | eventi target: 7585 | (morti+censure trattati come censura): 54761 

@@ -18,8 +18,8 @@
 
 suppressMessages(library(survival))
 
-data_dir   <- "D:/SAS-CCV/DOWNLOAD/DAICHILDL/longitudinal/data"
 proj_dir   <- "D:/SAS-CCV/DOWNLOAD/DAICHILDL/ldltarget"
+data_dir   <- file.path(proj_dir, "data")
 report_dir <- file.path(proj_dir, "reports")
 
 # --- Dati ------------------------------------------------------------
