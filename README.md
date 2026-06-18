@@ -37,8 +37,15 @@ powershell -ExecutionPolicy Bypass -File .\setup.ps1        # solo setup
 powershell -ExecutionPolicy Bypass -File .\setup.ps1 -Run   # setup + analisi + PDF
 ```
 
-Nota: i dati (`data/*.csv`) non sono versionati e vanno copiati a parte (vedi sotto). In
-alternativa al setup automatico, si possono seguire i passi manuali qui sotto.
+> ⚠️ **PRIMA di eseguire `setup.ps1` (e soprattutto `-Run`) copia i dati nella cartella `data/`.**
+> I CSV (`LDLFUP_TARGET.csv`, `LDLFUP_FARMACEUTICA.csv`, `LDLFUP_LDL.csv`) **non sono nel repo** e
+> lo script **non li crea né li scarica**: si limita a verificarne la presenza. La cartella `data/`
+> va creata e riempita a mano:
+> ```powershell
+> mkdir data    # se non esiste
+> # copiare qui i 3 CSV (es. estraendoli da ldltarget_data.zip)
+> ```
+> Senza i dati, `setup.ps1 -Run` si ferma con errore "dati mancanti".
 
 ## How-to manuale: clone, dati e installazione pacchetti
 
