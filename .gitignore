@@ -6,3 +6,7 @@
 # OS
 Thumbs.db
 .DS_Store
+
+# Dati sensibili (pazienti) - NON pubblicare su GitHub
+data/
+*.csv
